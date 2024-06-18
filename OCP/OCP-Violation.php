@@ -1,30 +1,35 @@
 <?php
 
+interface PaymentMethod
+{
+    public function process($amount);
+}
+
+class CreditCard implements PaymentMethod
+{
+    public function process($amount)
+    {
+        // Code to process credit card
+        echo 'process payment with credit card';
+    }
+}
+class Paypal implements PaymentMethod
+{
+    public function process($amount)
+    {
+        // Code to process paypal
+        echo 'process payment with paypal';
+    }
+}
 class PaymentProcessor
 {
-    public function process($paymentType, $amount)
+    public function process(PaymentMethod $paymentMethod, $amount)
     {
-        if ($paymentType == 'credit_card') {
-            $this->processCreditCardPayment($amount);
-        } elseif ($paymentType == 'paypal') {
-            $this->processPayPalPayment($amount);
-        } else {
-            throw new Exception("Unsupported payment type");
-        }
-    }
-
-    private function processCreditCardPayment($amount)
-    {
-        echo "Processing credit card payment of $" . $amount . "\n";
-    }
-
-    private function processPayPalPayment($amount)
-    {
-        echo "Processing PayPal payment of $" . $amount . "\n";
+        $paymentMethod->process($amount); //closed for modification
     }
 }
 
 // Usage
 $processor = new PaymentProcessor();
-$processor->process('credit_card', 100);
-$processor->process('paypal', 200);
+$processor->process(new CreditCard, 100);
+$processor->process(new Paypal, 200);
