@@ -1,30 +1,34 @@
 <?php
 
+interface Flyable
+{
+    public function fly();
+}
 class Bird
+{
+}
+
+class Sparrow extends Bird implements Flyable
 {
     public function fly()
     {
-        echo "Flying high in the sky\n";
+        echo "Sparrow is Flying high in the sky\n";
     }
 }
 
-class Sparrow extends Bird
+class Parrot extends Bird implements Flyable
 {
-}
-
-class Parrot extends Bird
-{
+    public function fly()
+    {
+        echo "Parrot is Flying high in the sky\n";
+    }
 }
 
 class Penguin extends Bird
 {
-    public function fly()
-    {
-        throw new Exception("Penguins can't fly");
-    }
 }
 
-function makeBirdFly(Bird $bird)
+function makeBirdFly(Flyable $bird)
 {
     $bird->fly();
 }
@@ -32,6 +36,9 @@ function makeBirdFly(Bird $bird)
 // Usage
 $sparrow = new Sparrow();
 makeBirdFly($sparrow); // Output: Flying high in the sky
+
+$parrot = new Parrot();
+makeBirdFly($parrot); // Output: Flying high in the sky
 
 $penguin = new Penguin();
 makeBirdFly($penguin); // Throws Exception: Penguins can't fly
