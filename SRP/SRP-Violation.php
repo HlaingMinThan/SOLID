@@ -20,23 +20,32 @@ class User
     {
         return $this->email;
     }
+}
 
+class UserRepository
+{
     // Responsibility 1: User data management
     public function save()
     {
         // Code to save user data to a database
         echo "Saving user data to database\n";
     }
+}
 
+class EmailService
+{
     // Responsibility 2: Email notifications
-    public function sendEmail($message)
+    public function sendEmail($email, $message)
     {
         // Code to send an email
-        echo "Sending email to " . $this->email . ": " . $message . "\n";
+        echo "Sending email to " . $email . ": " . $message . "\n";
     }
 }
 
 // Usage
 $user = new User("John Doe", "john@example.com");
-$user->save();
-$user->sendEmail("Welcome to our service!");
+$userRepository = new UserRepository;
+$userRepository->save();
+
+$emailService = new EmailService;
+$emailService->sendEmail($user->getEmail(), "Welcome to our service!");
